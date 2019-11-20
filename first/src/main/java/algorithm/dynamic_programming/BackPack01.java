@@ -1,0 +1,32 @@
+package algorithm.dynamic_programming;
+
+/**
+ * @author : dingwenqiang
+ * @date : 2019/11/12 17:43
+ * @description : 01背包问题回溯解法
+ */
+public class BackPack01 {
+
+    public static void main(String[] args) {
+        BackPack01 backPack01 = new BackPack01();
+        backPack01.f(0, 0);
+        System.out.println(backPack01.maxW);
+    }
+
+    // 回溯算法实现。注意：我把输入的变量都定义成了成员变量。
+    private int maxW = Integer.MIN_VALUE; // 结果放到maxW中
+    private int[] weight = {2, 2, 4, 6, 3};  // 物品重量
+    private int n = 5; // 物品个数
+    private int w = 9; // 背包承受的最大重量
+
+    public void f(int i, int cw) { // 调用f(0, 0)
+        if (cw == w || i == n) { // cw==w表示装满了,i==n表示物品都考察完了
+            if (cw > maxW) maxW = cw;
+            return;
+        }
+        f(i + 1, cw); // 选择不装第i个物品
+        if (cw + weight[i] <= w) {
+            f(i + 1, cw + weight[i]); // 选择装第i个物品
+        }
+    }
+}
